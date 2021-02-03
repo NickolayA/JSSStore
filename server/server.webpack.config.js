@@ -55,7 +55,17 @@ module.exports = {
           loader: 'null-loader',
         },
       },
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'ts-loader'
+        }
+      }
     ],
+  },
+  resolve: {
+    //extensions: ['.ts', '.tsx', '.js']
   },
   plugins: [
     // prevents the following warning during build:

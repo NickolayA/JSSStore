@@ -14,6 +14,7 @@ const chalk = require('chalk');
   SCAFFOLDING SCRIPT
 */
 const componentName = process.argv[2];
+console.log(process.argv);
 
 if (!componentName) {
   throw 'Component name was not passed. Usage: jss scaffold <ComponentName>';
@@ -37,6 +38,7 @@ if (fs.existsSync(componentManifestDefinitionsPath)) {
 }
 
 const componentOutputPath = scaffoldComponent();
+console.log(componentOutputPath);
 
 console.log();
 console.log(chalk.green(`Component ${componentName} has been scaffolded.`));
@@ -71,7 +73,7 @@ if (manifestOutputPath) {
 */
 
 function scaffoldComponent() {
-  const exportVarName = componentName.replace(/[^\w]+/g, '');
+  const exportVarName = componentName.replace(/[^\w]+/g, '')  
 
   const componentTemplate = `import React from 'react';
 import { Text } from '@sitecore-jss/sitecore-jss-react';
@@ -94,7 +96,7 @@ export default ${exportVarName};
 
   fs.mkdirSync(outputDirectoryPath);
 
-  const outputFilePath = path.join(outputDirectoryPath, 'index.js');
+  const outputFilePath = path.join(outputDirectoryPath, `${componentName}.ts`);
 
   fs.writeFileSync(outputFilePath, componentTemplate, 'utf8');
 
