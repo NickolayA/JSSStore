@@ -6,9 +6,9 @@
 
 /* eslint-disable no-throw-literal,no-console */
 
-const fs = require('fs');
-const path = require('path');
-const chalk = require('chalk');
+const fs = require("fs");
+const path = require("path");
+const chalk = require("chalk");
 
 /*
   SCAFFOLDING SCRIPT
@@ -17,15 +17,15 @@ const componentName = process.argv[2];
 console.log(process.argv);
 
 if (!componentName) {
-  throw 'Component name was not passed. Usage: jss scaffold <ComponentName>';
+  throw "Component name was not passed. Usage: jss scaffold <ComponentName>";
 }
 
 if (!/^[A-Z][A-Za-z0-9-]+$/.test(componentName)) {
-  throw 'Component name should start with an uppercase letter and contain only letters and numbers.';
+  throw "Component name should start with an uppercase letter and contain only letters and numbers.";
 }
 
-const componentManifestDefinitionsPath = 'sitecore/definitions/components';
-const componentRootPath = 'src/components';
+const componentManifestDefinitionsPath = "sitecore/definitions/components";
+const componentRootPath = "src/components";
 
 let manifestOutputPath = null;
 
@@ -42,9 +42,11 @@ console.log(componentOutputPath);
 
 console.log();
 console.log(chalk.green(`Component ${componentName} has been scaffolded.`));
-console.log(chalk.green('Next steps:'));
+console.log(chalk.green("Next steps:"));
 if (manifestOutputPath) {
-  console.log(`* Define the component's data in ${chalk.green(manifestOutputPath)}`);
+  console.log(
+    `* Define the component's data in ${chalk.green(manifestOutputPath)}`
+  );
 } else {
   console.log(
     `* Scaffold the component in Sitecore using '${chalk.green(
@@ -52,20 +54,24 @@ if (manifestOutputPath) {
     )}, or create the rendering item and datasource template yourself.`
   );
 }
-console.log(`* Implement the React component in ${chalk.green(componentOutputPath)}`);
+console.log(
+  `* Implement the React component in ${chalk.green(componentOutputPath)}`
+);
 if (manifestOutputPath) {
   console.log(
     `* Add the component to a route layout (/data/routes) and test it with ${chalk.green(
-      'jss start'
+      "jss start"
     )}`
   );
 } else {
   console.log(
     `* Deploy your app with the new component to Sitecore (${chalk.green(
-      'jss deploy:watch'
-    )} or ${chalk.green('jss deploy files')})`
+      "jss deploy:watch"
+    )} or ${chalk.green("jss deploy files")})`
   );
-  console.log(`* Add the component to a route using Sitecore Experience Editor, and test it.`);
+  console.log(
+    `* Add the component to a route using Sitecore Experience Editor, and test it.`
+  );
 }
 
 /*
@@ -73,19 +79,14 @@ if (manifestOutputPath) {
 */
 
 function scaffoldComponent() {
-  const exportVarName = componentName.replace(/[^\w]+/g, '')  
+  const exportVarName = componentName.replace(/[^\w]+/g, "");
 
-  const componentTemplate = `import React from 'react';
-import { Text } from '@sitecore-jss/sitecore-jss-react';
-
-const ${exportVarName} = (props) => (
-  <div>
-    <p>${componentName} Component</p>
-    <Text field={props.fields.heading} />
-  </div>
-);
-
-export default ${exportVarName};
+  const componentTemplate = `import * as React from 'react';
+export default class ${exportVarName} extends React.Component {
+  render(){
+    return <p>Hello ${exportVarName}</p>;
+  }
+}
 `;
 
   const outputDirectoryPath = path.join(componentRootPath, componentName);
@@ -96,9 +97,9 @@ export default ${exportVarName};
 
   fs.mkdirSync(outputDirectoryPath);
 
-  const outputFilePath = path.join(outputDirectoryPath, `${componentName}.ts`);
+  const outputFilePath = path.join(outputDirectoryPath, `${componentName}.tsx`);
 
-  fs.writeFileSync(outputFilePath, componentTemplate, 'utf8');
+  fs.writeFileSync(outputFilePath, componentTemplate, "utf8");
 
   return outputFilePath;
 }
@@ -137,7 +138,7 @@ export default function(manifest) {
     throw `Manifest definition path ${outputFilePath} already exists. Not creating manifest definition.`;
   }
 
-  fs.writeFileSync(outputFilePath, manifestTemplate, 'utf8');
+  fs.writeFileSync(outputFilePath, manifestTemplate, "utf8");
 
   return outputFilePath;
 }

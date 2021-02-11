@@ -59,13 +59,13 @@ module.exports = {
         test: /\.tsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: 'ts-loader'
+          loader: 'awesome-typescript-loader'
         }
       }
     ],
   },
   resolve: {
-    //extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js']
   },
   plugins: [
     // prevents the following warning during build:
