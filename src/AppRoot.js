@@ -5,6 +5,8 @@ import { ApolloProvider } from 'react-apollo';
 import componentFactory from './temp/componentFactory';
 import RouteHandler from './RouteHandler';
 
+import ApolloClientContext from "./contexts/ApolloClientContext";
+
 // This is the main JSX entry point of the app invoked by the renderer (server or client rendering).
 // By default the app's normal rendering is delegated to <RouteHandler> that handles the loading of JSS route data.
 
@@ -56,19 +58,19 @@ class AppRoot extends React.Component {
 
     return (
       <ApolloProvider client={graphQLClient}>
-        <SitecoreContext componentFactory={componentFactory} context={this.sitecoreContext}>
-          <Router location={path} context={{}}>
-            <Switch>
-              {routePatterns.map((routePattern) => (
-                <Route 
-                  key={routePattern}
-                  path={routePattern}
-                  render={(props) => <RouteHandler route={props} ssrRenderComplete={this.state.ssrRenderComplete} />}
-                />
-              ))}
-            </Switch>
-          </Router>
-        </SitecoreContext>
+          <SitecoreContext componentFactory={componentFactory} context={this.sitecoreContext}>
+            <Router location={path} context={{}}>
+              <Switch>
+                {routePatterns.map((routePattern) => (
+                  <Route 
+                    key={routePattern}
+                    path={routePattern}
+                    render={(props) => <RouteHandler route={props} ssrRenderComplete={this.state.ssrRenderComplete} />}
+                  />
+                ))}
+              </Switch>
+            </Router>
+          </SitecoreContext>
       </ApolloProvider>
     );
   }

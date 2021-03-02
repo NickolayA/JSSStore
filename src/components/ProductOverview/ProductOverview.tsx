@@ -4,7 +4,6 @@ import { IProduct } from '../../models/data/IProduct';
 import { Text, RichText, Image, DateField } from '@sitecore-jss/sitecore-jss-react';
 
 export default class ProductOverview extends React.Component<ISitecoreProps<IProduct>> {
-
   render() {
     return <div>
       <Text field={this.props.fields.Title} />
